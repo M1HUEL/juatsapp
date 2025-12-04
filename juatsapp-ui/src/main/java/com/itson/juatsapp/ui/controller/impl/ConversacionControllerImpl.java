@@ -15,6 +15,7 @@ import com.itson.juatsapp.ui.frame.ConversacionFrame;
 import com.itson.juatsapp.ui.frame.InformacionContactoFrame;
 import com.itson.juatsapp.ui.frame.IniciarSesionFrame;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -78,6 +79,8 @@ public class ConversacionControllerImpl implements ConversacionController {
             List<Mensaje> mensajes = mensajeService.findAllMensajesByChatId(chatSeleccionado.getId());
             StringBuilder sb = new StringBuilder();
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+
             for (Mensaje m : mensajes) {
                 String nombreAutor = "Desconocido";
 
@@ -94,7 +97,13 @@ public class ConversacionControllerImpl implements ConversacionController {
                     }
                 }
 
+                String fechaHora = "";
+                if (m.getTimestamp() != null) {
+                    fechaHora = " [" + m.getTimestamp().format(formatter) + "]";
+                }
+
                 sb.append(nombreAutor)
+                        .append(fechaHora) // Agregamos la fecha aquí
                         .append(": ")
                         .append(m.getContenido())
                         .append("\n\n");
