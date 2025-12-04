@@ -31,7 +31,8 @@ public class IniciarSesionFrame extends JFrame {
 
     private final IniciarSesionController controller;
 
-    private JTextField txtTelefono;
+    // CAMBIO 1: Cambiamos txtTelefono por txtNombre
+    private JTextField txtNombre;
     private JPasswordField txtContrasena;
 
     public IniciarSesionFrame() {
@@ -58,7 +59,8 @@ public class IniciarSesionFrame extends JFrame {
         formulario.setLayout(new GridLayout(0, 1, 5, 5));
         formulario.setOpaque(false);
 
-        txtTelefono = crearTextField();
+        // CAMBIO 2: Inicializamos el campo de nombre
+        txtNombre = crearTextField();
         txtContrasena = crearPasswordField();
 
         JButton btnIniciarSesion = crearBotonPrincipal("Iniciar Sesión");
@@ -67,8 +69,9 @@ public class IniciarSesionFrame extends JFrame {
         JButton btnRegistrarse = crearBotonSecundario("Registrarse");
         btnRegistrarse.addActionListener(e -> controller.navegarARegistro());
 
-        formulario.add(crearLabel("Teléfono"));
-        formulario.add(txtTelefono);
+        // CAMBIO 3: Cambiamos la etiqueta visual
+        formulario.add(crearLabel("Nombre de Usuario"));
+        formulario.add(txtNombre); // Agregamos el campo de nombre
 
         formulario.add(crearLabel("Contraseña"));
         formulario.add(txtContrasena);
@@ -80,11 +83,15 @@ public class IniciarSesionFrame extends JFrame {
     }
 
     private void accionIniciarSesion() {
-        String tel = txtTelefono.getText();
+        // CAMBIO 4: Obtenemos el texto del campo nombre
+        String nombre = txtNombre.getText();
         String pass = String.valueOf(txtContrasena.getPassword());
-        controller.iniciarSesion(tel, pass);
+
+        // Enviamos 'nombre' en lugar de 'tel'
+        controller.iniciarSesion(nombre, pass);
     }
 
+    // --- El resto de métodos de diseño (crearPanelFondoDegradado, crearTextField, etc.) permanecen igual ---
     private JPanel crearPanelFondoDegradado() {
         JPanel panel = new JPanel() {
             @Override

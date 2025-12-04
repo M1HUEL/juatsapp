@@ -21,14 +21,15 @@ public class IniciarSesionControllerImpl implements IniciarSesionController {
     }
 
     @Override
-    public void iniciarSesion(String telefono, String contrasena) {
+    public void iniciarSesion(String nombre, String contrasena) {
         try {
-            if (telefono.isEmpty() || contrasena.isEmpty()) {
+            if (nombre.isEmpty() || contrasena.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Por favor ingrese todos los campos.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            Usuario usuarioLogueado = usuarioService.login(telefono, contrasena);
+            // Aquí se asume que el servicio ahora busca por nombre
+            Usuario usuarioLogueado = usuarioService.login(nombre, contrasena);
 
             JOptionPane.showMessageDialog(frame, "Bienvenido " + usuarioLogueado.getNombre());
 
